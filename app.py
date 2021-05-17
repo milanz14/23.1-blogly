@@ -23,7 +23,12 @@ def show_users():
     users = User.query.all()
     return render_template('users.html', users=users)
 
-@app.route('/users', methods=['POST'])
+@app.route('/users/new')
+def show_add_form():
+    """ show the add form for a new user """
+    return render_template('newuser.html')
+
+@app.route('/users/new', methods=['POST'])
 def create_new_user():
     firstname = request.form['firstname']
     lastname = request.form['lastname']
@@ -43,5 +48,17 @@ def show_user_detail(user_id):
 def edit_user(user_id):
     """ edit details for specific user """
     foundUser = User.query.get_or_404(user_id)
-    return render_template('edituserform.html', foundUser=foundUser)
+    if request.method == 'POST':
+        founduser.first_name = request.form['firstname']
+        founduser.last_name = request.form['lastname']
+        db.session.commit(foundUser)
+    else:
+        return render_template('edituserform.html', foundUser=foundUser)
 
+@app.route('/users/<int:user_id>/delete', methods=['GET','POST'])
+def delete_user(user_id):
+    """ delete a particular user """
+    User.query.filter_by(id=user_id).delete()
+    db.session.commit()
+    flash('User Deleted!')
+    return redirect('/users')
