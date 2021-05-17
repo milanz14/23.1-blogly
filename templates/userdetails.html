@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <h2>User Details</h2>
     <img src='{{foundUser.image_url}}' style='max-height: 200px'><h2>{{ foundUser.first_name}} {{foundUser.last_name }}</h2>
     <a class="btn" role="button" href='/users/{{ foundUser.id }}/edit'>Edit</a>
     <a class="btn" role="button" href='/users/{{ foundUser.id }}/delete'>Delete User</a>
