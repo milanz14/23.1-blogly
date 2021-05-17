@@ -51,7 +51,9 @@ def edit_user(user_id):
     if request.method == 'POST':
         foundUser.first_name = request.form['firstname']
         foundUser.last_name = request.form['lastname']
-        db.session.commit(foundUser)
+        db.session.commit()
+        flash('User details updated!')
+        return redirect('/users')
     else:
         return render_template('edituserform.html', foundUser=foundUser)
 

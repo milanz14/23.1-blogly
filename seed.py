@@ -5,8 +5,8 @@ from app import app
 db.drop_all()
 db.create_all()
 
-u1 = User(first_name='User1', last_name='User1 Last')
-u2 = User(first_name='User2', last_name='User2 Last')
+u1 = User(first_name='Ron', last_name='Swanson')
+u2 = User(first_name='Tom', last_name='Haverford')
 
 db.session.add(u1)
 db.session.add(u2)
