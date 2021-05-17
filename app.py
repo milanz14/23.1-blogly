@@ -33,19 +33,15 @@ def create_new_user():
     flash('User created successfully!')
     return redirect('/users')
 
-@app.route('/users/new', methods=['GET','POST'])
-def show_new_user_form():
-    """ show new users add form"""
-    pass
-
 @app.route('/users/<int:user_id>')
 def show_user_detail(user_id):
     """ show details for a specific user """
     foundUser = User.query.get_or_404(user_id)
     return render_template('userdetails.html', foundUser=foundUser)
 
-@app.route('/users/<int:id>/edit', methods=['GET','POST'])
-def edit_user(uid):
+@app.route('/users/<int:user_id>/edit', methods=['GET','POST'])
+def edit_user(user_id):
     """ edit details for specific user """
-    pass
+    foundUser = User.query.get_or_404(user_id)
+    return render_template('edituserform.html', foundUser=foundUser)
 
