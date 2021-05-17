@@ -7,5 +7,19 @@
             <li><a>First Name: {{ user.first_name }}, Last Name: {{ user.last_name }}</a></li>
         {% endfor %}
     </ul>
+    <br>
+    <p>
+        {% for msg in get_flashed_messages() %}
+            {{ msg }}
+        {% endfor %}
+    </p>
+    <h2>Add New User:</h2>
+    <form action="/" method='POST'>
+        <label for="firstname">First Name: </label>
+        <input type="text" placeholder="User First Name" name="firstname", id="firstname">
+        <label for="lastname">Last Name: </label>
+        <input type="text" placeholder="User Last Name" name="lastname", id="lastname">
+        <button>Add New User!</button>
+    </form>
 
 {% endblock %}
