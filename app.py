@@ -1,5 +1,5 @@
-from flask import Flask, render_template, redirect, flask, session
-from flask_debugtoolbar import DebugToolbarExtension
+from flask import Flask, render_template, redirect, flash, session
+# from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, User
 
 app = Flask(__name__)
@@ -9,6 +9,11 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] =  False
 app.config['SQLALCHEMY_ECHO'] = True
 app.config['SECRET_KEY'] = 'development_key'
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
-debug = DebugToolbarExtension(app)
+# debug = DebugToolbarExtension(app)
 
 connect_db(app)
+
+@app.route('/')
+def show_users():
+    users = User.query.all()
+    return render_template('users.html', users=users)
