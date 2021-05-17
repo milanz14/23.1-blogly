@@ -4,7 +4,7 @@
 <h1>Users Page</h1>
     <ul>
         {% for user in users %}
-            <li><a>First Name: {{ user.first_name }}, Last Name: {{ user.last_name }}</a></li>
+            <li><a href='/users/{{user.id}}'>First Name: {{ user.first_name }}, Last Name: {{ user.last_name }}</a></li>
         {% endfor %}
     </ul>
     <br>
@@ -14,7 +14,7 @@
         {% endfor %}
     </p>
     <h2>Add New User:</h2>
-    <form action="/" method='POST'>
+    <form action="/users" method='POST'>
         <label for="firstname">First Name: </label>
         <input type="text" placeholder="User First Name" name="firstname", id="firstname">
         <label for="lastname">Last Name: </label>
