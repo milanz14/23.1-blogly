@@ -49,8 +49,8 @@ def edit_user(user_id):
     """ edit details for specific user """
     foundUser = User.query.get_or_404(user_id)
     if request.method == 'POST':
-        founduser.first_name = request.form['firstname']
-        founduser.last_name = request.form['lastname']
+        foundUser.first_name = request.form['firstname']
+        foundUser.last_name = request.form['lastname']
         db.session.commit(foundUser)
     else:
         return render_template('edituserform.html', foundUser=foundUser)
