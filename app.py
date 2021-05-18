@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, flash, session, request
 from flask_debugtoolbar import DebugToolbarExtension
-from models import db, connect_db, User
+from models import db, connect_db, User, Post
 
 app = Flask(__name__)
 
@@ -64,3 +64,32 @@ def delete_user(user_id):
     db.session.commit()
     flash('User Deleted!')
     return redirect('/users')
+
+@app.route('/users/<int:user_ud>/posts/new')
+def new_post_form(user_id):
+    """ show the form for a specific user's new posts """
+    pass
+
+@app.route('/users/<int:user_id>/posts/new', methods=['POST'])
+def handle_new_post(user_id):
+    """ support adding a new post """
+    pass
+
+@app.route('/posts/<int:post_id>')
+def show_posts():
+    """ show list of posts """
+    pass
+
+@app.route('/posts/<int:post_id>/edit', methods=['GET','POST'])
+def show_posts_or_edit(post_id):
+    """ show the posts and render a post edit form, redirect
+    back to post view after updating a post """
+    pass
+
+@app.route('/posts/<int:post_id>/delete', methods=['GET','POST'])
+def delete_post(post_id):
+    """ delete a specific post """
+    pass
+
+
+
