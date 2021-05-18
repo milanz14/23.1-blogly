@@ -2,8 +2,23 @@
 
 {% block content %}
     <h2>User Details</h2>
-    <img src='{{foundUser.image_url}}' style='max-height: 200px'><h2>{{ foundUser.first_name}} {{foundUser.last_name }}</h2>
+    <img src='{{foundUser.image_url}}' style='max-height: 200px'><h2>User: {{ foundUser.first_name}} {{foundUser.last_name }}</h2>
     <a class="btn" role="button" href='/users/{{ foundUser.id }}/edit'>Edit</a>
     <a class="btn" role="button" href='/users/{{ foundUser.id }}/delete'>Delete User</a>
     <a class="btn" role="button" href='/users'>Back to All Users</a>
+
+    <h3>{{foundUser.first_name}}'s Most Recent Posts</h3>
+    {% if not foundUserPosts %}
+        <h4>This user has no recent posts</h4>
+    {% else %}
+        {% for post in foundUserPosts %}
+            <div>
+                <h3><b>{{post.title}}</b></h3>
+                <h4><sm>By: {{foundUser.first_name}} {{foundUser.last_name}}</sm></h4>
+                <p>{{ post.content }}</p>
+                <h6>Posted: {{foundUserPosts.created_at}}</h6>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <a href='/users/{{foundUser.id}}/posts/new'>Add Post</a>
 {% endblock %}

@@ -42,7 +42,8 @@ def create_new_user():
 def show_user_detail(user_id):
     """ show details for a specific user """
     foundUser = User.query.get_or_404(user_id)
-    return render_template('userdetails.html', foundUser=foundUser)
+    foundUserPosts = Post.query.filter(Post.user_id==user_id)
+    return render_template('userdetails.html', foundUser=foundUser,foundUserPosts=foundUserPosts)
 
 @app.route('/users/<int:user_id>/edit', methods=['GET','POST'])
 def edit_user(user_id):
@@ -68,7 +69,8 @@ def delete_user(user_id):
 @app.route('/users/<int:user_id>/posts/new')
 def new_post_form(user_id):
     """ show the form for a specific user's new posts """
-    pass
+    foundUser = User.query.get_or_404(user_id)
+    return render_template('newpost.html', foundUser=foundUser)
 
 @app.route('/users/<int:user_id>/posts/new', methods=['POST'])
 def handle_new_post(user_id):
