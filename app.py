@@ -75,7 +75,13 @@ def new_post_form(user_id):
 @app.route('/users/<int:user_id>/posts/new', methods=['POST'])
 def handle_new_post(user_id):
     """ support adding a new post """
-    pass
+    title = request.form['title']
+    content = request.form['content']
+    new_post = Post(title=title, content=content, user_id=user_id)
+    db.session.add(new_post)
+    db.session.commit()
+    flash('Posted')
+    return redirect(f'/users/{user_id}')
 
 @app.route('/posts/<int:post_id>')
 def show_posts():
