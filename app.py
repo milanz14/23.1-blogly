@@ -65,7 +65,7 @@ def delete_user(user_id):
     flash('User Deleted!')
     return redirect('/users')
 
-@app.route('/users/<int:user_ud>/posts/new')
+@app.route('/users/<int:user_id>/posts/new')
 def new_post_form(user_id):
     """ show the form for a specific user's new posts """
     pass
