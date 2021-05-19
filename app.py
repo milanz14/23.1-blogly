@@ -84,9 +84,11 @@ def handle_new_post(user_id):
     return redirect(f'/users/{user_id}')
 
 @app.route('/posts/<int:post_id>')
-def show_posts():
+def show_posts(post_id):
     """ show list of posts """
-    pass
+    post = Post.query.get_or_404(post_id)
+    user = User.query.get_or_404(post.user_id)
+    return render_template('postdetails.html', post=post, user=user)
 
 @app.route('/posts/<int:post_id>/edit', methods=['GET','POST'])
 def show_posts_or_edit(post_id):
@@ -97,6 +99,11 @@ def show_posts_or_edit(post_id):
 @app.route('/posts/<int:post_id>/delete', methods=['GET','POST'])
 def delete_post(post_id):
     """ delete a specific post """
+    # user = User.query.get_or_404(post.user_id)
+    # Post.query.filter_by(id=post_id).delete()
+    # db.session.commit()
+    # flash('Post has been deleted!')
+    # return redirect(f'/users/{user.id}')
     pass
 
 
