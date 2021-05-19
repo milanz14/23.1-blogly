@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Edit {{ foundUser.first_name }}'s Post</h1>
+    <form action='/posts/{{foundPost.id}}/edit' method='POST'>
+        <div>
+            <label for="title">Title: </label>
+            <input type="text" name="title" id="title" value="{{foundPost.title}}">
+        </div>
+        <div>
+            <label for="content">Content: </label>
+            <textarea col="25" row="8" name="content" id="content">{{foundPost.content}}</textarea>
+        </div>
+        <a class="btn" role="button" href='/posts/{{foundPost.id}}'>Cancel</a>
+        <button type="submit">Submit Edit</button>
+    </form>
+{% endblock %}

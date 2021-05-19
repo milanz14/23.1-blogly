@@ -94,7 +94,16 @@ def show_posts(post_id):
 def show_posts_or_edit(post_id):
     """ show the posts and render a post edit form, redirect
     back to post view after updating a post """
-    pass
+    foundPost = Post.query.get_or_404(post_id)
+    foundUser = User.query.get_or_404(foundPost.user_id)
+    if request.method == 'POST':
+        foundPost.title = request.form['title']
+        foundPost.content = request.form['content']
+        db.session.commit()
+        flash('Post updated!')
+        return redirect(f'/posts/{post_id}')
+    else:
+        return render_template('editpost.html', foundPost=foundPost, foundUser=foundUser)
 
 @app.route('/posts/<int:post_id>/delete', methods=['GET','POST'])
 def delete_post(post_id):
