@@ -8,9 +8,6 @@
     <a class="btn" role="button" href='/users'>Back to All Users</a>
 
     <h3>{{foundUser.first_name}}'s Most Recent Posts</h3>
-    {% if not foundUserPosts %}
-        <h4>This user has no recent posts</h4>
-    {% else %}
         {% for post in foundUserPosts %}
             <div>
                 <h3><b>{{post.title}}</b></h3>
