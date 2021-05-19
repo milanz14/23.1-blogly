@@ -10,7 +10,7 @@
     <h3>{{foundUser.first_name}}'s Most Recent Posts</h3>
         {% for post in foundUserPosts %}
             <div>
-                <h3><b>{{post.title}}</b></h3>
+                <h3><b>{{post.title}}</b></h3><a href='/posts/{{post.id}}/edit'>Edit Post</a>
                 <h4><sm>By: {{foundUser.first_name}} {{foundUser.last_name}}</sm></h4>
                 <p>{{ post.content }}</p>
                 <h6>Posted: {{foundUserPosts.created_at}}</h6>
