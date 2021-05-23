@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, flash, session, request
 from flask_debugtoolbar import DebugToolbarExtension
-from models import db, connect_db, User, Post
+from models import db, connect_db, User, Post, PostTag, Tag
 
 app = Flask(__name__)
 
@@ -112,7 +112,46 @@ def delete_post(post_id):
     db.session.commit()
     flash('Post has been deleted!')
     return redirect('/users')
-    
 
+@app.route('/tags')
+def display_all_tags():
+    """ display all of the tags in the DB
+    link to tag details page """
+    tags = Tag.query.all()
+    return render_template('tags.html', tags=tags)
 
+@app.route('/tags/<int:tag_id>')
+def show_tag_details(tag_id):
+    """ display detail for a specific tag """
+    foundTag = Tag.query.filter_by(id=tag_id)
+    return render_template('tagdetail.html', foundTag=foundTag)
 
+# something is off with the above GET route - doesn't display the tag id or tag_name in the 
+# rendered HTML Template - FIX
+
+@app.route('/tags/<int:tag_id>/edit', methods=['GET','POST'])
+def edit_specific_tag(tag_id):
+    """ display edit for for changing the name of a tag """
+    foundTag = Tag.query.filter_by(id=tag_id)
+    if request.method == 'POST':
+        foundTag.tag_name = request.form['tagname']
+        db.session.commit()
+        flash('Tag Updated!')
+        return redirect(f'/tags/{tag_id}')
+    else:
+        return render_template('edittag.html', foundTag=foundTag)
+
+# issue with the route above - not querying the TAG properly -- FIX
+
+@app.route('/tags/new', methods=['GET','POST'])
+def create_a_new_tag():
+    """ render a form to create a new tag """
+    if request.method == 'POST':
+        new_tag_name = request.form['tagname']
+        new_tag = Tag(tag_name=new_tag_name)
+        db.session.add(new_tag)
+        db.session.commit()
+        flash('Success! New Tag Added!')
+        return redirect('/tags')
+    else:
+        return render_template('newtag.html')
