@@ -31,3 +31,15 @@ class Post(db.Model):
     created_at = db.Column(db.DateTime)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     
+class PostTag(db.Model):
+    __tablename__ = 'posttags'
+    pass
+
+
+class Tag(db.Model):
+    __tablename__ = 'tags'
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.Text, unique=True)
+
+#  Research composite primary key in SQLA
