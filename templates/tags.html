@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Tag Details{% endblock %}
+
+{% block content %}
+
+{% for msg in get_flashed_messages() %}
+    {{ msg }}
+{% endfor %}
+
+    <h2>List of ALL tags in the database:</h2>
+    <ul>
+        {% for tag in tags %}
+            <li><a href='/tags/{{tag.id}}'>{{ tag.tag_name }}</a></li>
+        {% endfor %}
+    </ul>
+
+    <a href="/tags/new">Add a new Tag to the database</a>
+{% endblock %}

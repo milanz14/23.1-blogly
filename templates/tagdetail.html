@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ foundTag.tag_name }}{% endblock %}
+
+{% block content %}
+    <h1>Details of TAG: {{ foundTag.tag_name }}</h1>
+    <p>Tag ID: {{ foundTag.id }} - {{ foundTag.tag_name }}</p>
+
+    <a href='/tags/{{ foundTag.id }}/edit'>Edit this tag</a>
+    <a href='/tags'>Back to all tags</a>
+{% endblock %}
