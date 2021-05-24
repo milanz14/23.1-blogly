@@ -6,6 +6,14 @@
     <h1>Details of TAG: {{ foundTag.tag_name }}</h1>
     <p>Tag ID: {{ foundTag.id }} - {{ foundTag.tag_name }}</p>
 
+    <p>This tag is used on the following Posts:</p>
+    <ul>
+        {% for post in foundPosts %}
+            <li>{{ post.title }}</li>
+        {% endfor %}
+    </ul>
+
     <a href='/tags/{{ foundTag.id }}/edit'>Edit this tag</a>
+    <a href='/tags/{{ foundTag.id }}/delete'>Delete this tag</a>
     <a href='/tags'>Back to all tags</a>
 {% endblock %}
