@@ -123,23 +123,23 @@ def display_all_tags():
 @app.route('/tags/<int:tag_id>')
 def show_tag_details(tag_id):
     """ display detail for a specific tag """
-    foundTag = Tag.query.filter_by(id=tag_id)
+    foundTag = Tag.query.get_or_404(tag_id)
+    # the filter_by method doesn't work here so get_or_404 fixes the issue
+    # must be better to use get_or_404 as a general rule of thumb?
     return render_template('tagdetail.html', foundTag=foundTag)
-
-# something is off with the above GET route - doesn't display the tag id or tag_name in the 
-# rendered HTML Template - FIX
 
 @app.route('/tags/<int:tag_id>/edit', methods=['GET','POST'])
 def edit_specific_tag(tag_id):
     """ display edit for for changing the name of a tag """
     foundTag = Tag.query.filter_by(id=tag_id)
+    foundPosts = Post.query.all()
     if request.method == 'POST':
         foundTag.tag_name = request.form['tagname']
         db.session.commit()
         flash('Tag Updated!')
         return redirect(f'/tags/{tag_id}')
     else:
-        return render_template('edittag.html', foundTag=foundTag)
+        return render_template('edittag.html', foundTag=foundTag, foundPosts=foundPosts)
 
 # issue with the route above - not querying the TAG properly -- FIX
 
@@ -155,3 +155,11 @@ def create_a_new_tag():
         return redirect('/tags')
     else:
         return render_template('newtag.html')
+
+@app.route('/tags/<int:tag_id>/delete', methods=['GET','POST'])
+def delete_specific_tag(tag_id):
+    """ handle deletion of a tag """
+    Tag.query.filter_by(id=tag_id).delete()
+    db.session.commit()
+    flash('Tag has been deleted')
+    return redirect('/tags')
